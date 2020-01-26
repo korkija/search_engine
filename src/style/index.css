@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.code-box-demo .ant-slider {
+  margin-bottom: 16px;
+}
+
+.search {
+  margin: 3px;
+}
+.slider{
+  margin-top: 50px;
+}
+
+.card-person{
+  margin: 3px;
+  padding: 2px;
+  border: 1px solid #000; /* Рамка вокруг текста */
+  border-radius: 4px;
+}
+.is-inactive{
+color: green;
+}
+
+.portal-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .3);
+  position: fixed;
+  top: 0;
+  left: 0
+}
+
+.modal {
+  width: 400px;
+  height: 100px;
+  background: #ffffff;
+}
+
+/* The Modal (background) */
+.modal-wrapper {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
