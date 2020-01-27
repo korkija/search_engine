@@ -13,7 +13,6 @@ import {
     GET_FILTER_LIST,
     GET_DELETE_PERSON,
 } from "../constants";
-import {people} from "../reducers/people";
 
 const getPeoplePending = () => ({type: GET_PEOPLE_PENDING});
 
@@ -30,11 +29,8 @@ const getPeopleRejected = () => ({
 export const getChangeSizePage = (payLoad, payLoadSize) => {
     return (dispatch) => {
         let {people} = store.getState();
-        console.log(people.pageSize);
         dispatch(getSizePage(payLoadSize));
-        console.log(payLoadSize);
-        console.log(Math.ceil(people.pageSize*payLoad/payLoadSize));
-        dispatch(getPage(Math.ceil(people.pageSize*payLoad/payLoadSize)));
+        dispatch(getPage(Math.ceil(people.pageSize * payLoad / payLoadSize)));
     }
 };
 export const getSizePage = (payLoad, payLoadSize) => ({
@@ -44,16 +40,16 @@ export const getSizePage = (payLoad, payLoadSize) => ({
 });
 
 const getDelete = (payLoad) => {
-    console.log("dddddddddddddddd");
     return {
-    type: GET_DELETE_PERSON,
-    payLoad,
-}};
+        type: GET_DELETE_PERSON,
+        payLoad,
+    }
+};
 export const getDeletePerson = (payLoad) => {
     let {people} = store.getState();
-    const indexPeople=people.people.findIndex((item)=>(item._id===payLoad));
-    const indexFilterPeople=people.peopleFilter.findIndex((item)=>(item._id===payLoad));
-    getDelete([indexPeople,indexFilterPeople]);
+    const indexPeople = people.people.findIndex((item) => (item._id === payLoad));
+    const indexFilterPeople = people.peopleFilter.findIndex((item) => (item._id === payLoad));
+    return getDelete([indexPeople, indexFilterPeople]);
 };
 
 const getFilterList = (payLoad) => {
@@ -64,11 +60,11 @@ const getFilterList = (payLoad) => {
 };
 
 export const getResetFilter = () => {
-    console.log("getResetFilter");
     return (dispatch) => {
         dispatch({
-        type: GET_RESET_FILTER
-    })}
+            type: GET_RESET_FILTER
+        })
+    }
 };
 
 export const getPage = (payLoad) => ({
@@ -102,19 +98,21 @@ export const getFilter = ({name, ageMin, ageMax, genderChoose}) => {
     let {people} = store.getState();
     const gender = true;//
     const filterList = people.people.filter(item => {
-        if (genderChoose==="both") {
-            return (item.place >= ageMin)
-                && (item.place <= ageMax)
-                && (item.room.toLowerCase().indexOf(name.toLowerCase()) > -1)
-        } else
-        {
-            return (item.booked === gender)
-                && (item.place >= ageMin)
-                && (item.place <= ageMax)
-                && (item.room.toLowerCase().indexOf(name.toLowerCase()) > -1)
+        if (item.show === undefined) {
+            if (genderChoose === "both") {
+                return (item.place >= ageMin)
+                    && (item.place <= ageMax)
+                    && (item.room.toLowerCase().indexOf(name.toLowerCase()) > -1)
+            } else {
+                return (item.booked === gender)
+                    && (item.place >= ageMin)
+                    && (item.place <= ageMax)
+                    && (item.room.toLowerCase().indexOf(name.toLowerCase()) > -1)
+            }
+        } else {
+            return false;
         }
     });
-    console.log(filterList);
     getFilterList(filterList);
     return (dispatch) => {
         dispatch(getFilterList(filterList));

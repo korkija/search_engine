@@ -8,12 +8,12 @@ import {createBrowserHistory} from "history";
 import '../style/App.css';
 import 'antd/dist/antd.css';
 import '../style/index.css';
-import {getPage, getPeople, getChangeSizePage, getResetFilter, getDeletePerson} from "../actions/people";
+import {getPage, getPeople, getChangeSizePage, getDeletePerson} from "../actions/people";
 import {MyFilters} from "./Filters";
 import {PaginationMy} from "./Pagination";
 import {ListPerson} from "./ListPeople";
 
-const {Content, Footer} = Layout;
+const {Content, Footer, Header} = Layout;
 
 export const history = createBrowserHistory();
 
@@ -28,28 +28,28 @@ class App extends React.Component {
         return (
             <Layout>
                 <Router history={history}>
-
-                    {this.props.isLoading
-                        ? <div>Loading</div>
-                        :
-                        <div>
-                            <MyFilters/>
-
-                            <ListPerson
-                                peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
-                                // deletePerson={this.props.getDeletePerson}
-                            />
-                            <PaginationMy totalForPages={this.props.totalForPages}
-                                          page={this.props.page}
-                                          pageChange={this.props.getPage}
-                                          pageSizeChange={this.props.getChangeSizePage}/>
-                        </div>
-                    }
+                    <Header><h1>LOGO :)</h1></Header>
                     <Content style={{padding: '0 50px', marginTop: 64}}>
+                        {this.props.isLoading
+                            ? <div>Loading</div>
+                            :
+                            <div className="flex-container">
+                                <div className="flex-block-filter">
+                                    <MyFilters/>
+                                </div>
 
-                        <div style={{background: '#eee', padding: 24, minHeight: 380}}>
-                            {/*<Main/>*/}
-                        </div>
+                                <div className="flex-block-list">
+                                    <ListPerson
+                                        peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
+                                        deletePerson={this.props.getDeletePerson}
+                                    />
+                                    <PaginationMy totalForPages={this.props.totalForPages}
+                                                  page={this.props.page}
+                                                  pageChange={this.props.getPage}
+                                                  pageSizeChange={this.props.getChangeSizePage}/>
+                                </div>
+                            </div>
+                        }
                     </Content>
                 </Router>
                 <Footer>Ant Disegn ©2020Created by Ant UED</Footer>
@@ -70,7 +70,7 @@ const mapDispatchToProps = {
     getPeople,
     getChangeSizePage,
     getPage,
-   // getDeletePerson,
+    getDeletePerson,
 };
 export const MyApp = connect(
     mapStateToProps,

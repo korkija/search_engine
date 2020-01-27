@@ -1,7 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../style/index.css';
-import {connect} from "react-redux";
 import {CardPerson} from "./CardPerson";
 
 
@@ -11,15 +10,18 @@ export const ListPerson = ({peopleFilterForPage,deletePerson}) => {
             <div className="container ">
                 {peopleFilterForPage.map((item, index, array) => (
                     <div key={item._id}>
-                        {((index === 0) || (String(array[index - 1].row)[0] != String(item.row)[0])) &&
+                        {((index === 0) || (String(array[index - 1].row)[0] !== String(item.row)[0])) &&
                         <div>{String(item.row)[0]}</div>}
+                        {(item.show === undefined) &&
                         <CardPerson
-                                    namePerson={item.row}
-                                    idPerson={item._id}
-                                    agePerson={item.place}
-                                    genderPerson={item.booked}
-                                    deletePerson={()=>deletePerson}
-                                    />
+                            namePerson={item.row}
+                            index={index}
+                            idPerson={item._id}
+                            agePerson={item.place}
+                            genderPerson={item.booked}
+                            deletePerson={(id) => deletePerson(id)}
+                        />
+                        }
                     </div>
                 ))}
 

@@ -14,7 +14,7 @@ class Filters extends React.Component {
     state = {
         ageMin: this.props.ageMinDefault,
         ageMax: this.props.ageMaxDefault,
-        gender : ["both", "female", "male"],
+        gender: ["both", "female", "male"],
         genderChoose: "both",
         nameForStart: "",
         name: "",
@@ -47,8 +47,10 @@ class Filters extends React.Component {
         }
     };
 
-    timingAndFilter =()=>{
-      setTimeout( (()=> { this.props.getFilter(this.state); }),400);
+    timingAndFilter = () => {
+        setTimeout((() => {
+            this.props.getFilter(this.state);
+        }), 400);
     };
 
     reset = () => {
@@ -79,9 +81,9 @@ class Filters extends React.Component {
         );
 
         return (
-            <div>
+            <div className="flex-container-for-filter">
                 Name:
-                <div className="find-movies search">
+                <div className="search">
                     <Search
                         className="filterName"
                         placeholder="input search text"
@@ -105,27 +107,29 @@ class Filters extends React.Component {
                         className="age-min"
                         min={this.props.ageMin}
                         max={this.props.ageMax}
-                        style={{marginLeft: 16}}
                         value={ageMin}
                         onChange={this.onChange1}
                     />
-                    to
+                    to:
                     <InputNumber
                         className="age-max"
                         min={this.props.ageMin}
                         max={this.props.ageMax}
-                        style={{marginLeft: 16}}
+                        style={{marginLeft: 1}}
                         value={ageMax}
                         onChange={this.onChange2}
                     />
                 </div>
-                Gender:
-                <Dropdown overlay={menu}>
-                    <Button className="dropdown-my">
-                        <span className="filter1">{genderChoose}</span><Icon type="down"/>
-                    </Button>
-                </Dropdown>
-                <button className="dropdown-my" onClick={this.reset}>ОТЧИСТИТЬ</button>
+                <div className="flex-block-test">
+                    gender:
+                    <Dropdown className="gender-dropdown" overlay={menu}>
+                        <Button >
+                            <span className="filter1">{genderChoose}</span><Icon type="down"/>
+                        </Button>
+                    </Dropdown>
+
+                    <button className="dropdown-my" onClick={this.reset}>ОЧИСТИТЬ</button>
+                </div>
             </div>
         );
     }

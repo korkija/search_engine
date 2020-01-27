@@ -27,8 +27,6 @@ const INITIAL_DATA = {
 
 
 export const people = (state = INITIAL_DATA, action) => {
-    console.log("action.type");
-    console.log(action.type);
     switch (action.type) {
         case GET_PEOPLE_PENDING: {
             return {
@@ -38,12 +36,11 @@ export const people = (state = INITIAL_DATA, action) => {
             };
         }
         case GET_PEOPLE_RESOLVED: {
-            console.log(action.payLoad.length);
             return {
                 ...state,
                 isLoading: false,
                 people: action.payLoad,
-                peopleFilter: action.payLoad,
+                peopleFilter: [...action.payLoad],
                 totalForPages:action.payLoad.length,
                 // genres: genresToState(action.payLoad),
                 // chooseMovie: chooseMovieFunc(action.payLoad)
@@ -69,16 +66,15 @@ export const people = (state = INITIAL_DATA, action) => {
             };
         }
         case GET_DELETE_PERSON: {
-            console.log("GET_DELETE_PERSON");
-            console.log(action.payLoad);
+            state.people[action.payLoad[0]].show=false;
+            state.peopleFilter[action.payLoad[1]].show=false;
             return {
                 ...state,
-                people:state.people.splice(action.payLoad[0],1),
-                peopleFilter:state.peopleFilter.splice(action.payLoad[1],1),
+                people:state.people.filter(item => {return item.show === undefined}),
+                peopleFilter:state.peopleFilter.filter(item => {return item.show === undefined}),
             };
         }
         case GET_RESET_FILTER: {
-            console.log();
             return {
                 ...state,
                 ageMin: state.ageMinDefault,
@@ -88,7 +84,6 @@ export const people = (state = INITIAL_DATA, action) => {
             };
         }
         case GET_AGE_MAX_MIN: {
-           // console.log(action.payLoad[1]);
             return {
                 ...state,
                 ageMinDefault:action.payLoad[0],
@@ -99,8 +94,6 @@ export const people = (state = INITIAL_DATA, action) => {
             };
         }
         case GET_FILTER_LIST: {
-            console.log("GET_FILTER_LIST");
-            console.log(action.payLoad);
             return {
                 ...state,
                 peopleFilter:action.payLoad,

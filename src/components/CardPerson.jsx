@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import 'antd/dist/antd.css';
 import '../style/index.css';
-import {connect} from "react-redux";
-import {Pagination} from "antd";
 import {Modal} from "./Modal";
 import {ModalPositive} from "./ModalPositive";
 
-export const CardPerson = ({namePerson, idPerson, agePerson, genderPerson,deletePerson}) => {
+export const CardPerson = ({namePerson, index, idPerson, agePerson, genderPerson, deletePerson}) => {
 
     const [show, toggleShow] = useState(false);
     const [showSecond, toggleShowSecond] = useState(false);
@@ -18,22 +16,18 @@ export const CardPerson = ({namePerson, idPerson, agePerson, genderPerson,delete
         toggleShowSecond(!showSecond);
     };
     const modalMessageOK = (id) => {
-        console.log("showSecond");
-        console.log(showSecond);
-        //deletePerson(id);
+        deletePerson(id);
         toggleShowSecond(!showSecond);
     };
+    const classNameIsActive = genderPerson ? "card-person" : "card-person is-inactive";
     return (
         <div>
-            {show && <Modal  idForShow={idPerson} handleShowNext={modalMessageAll}  handleShowToggle={modalMessage}/>}
-            {showSecond && <ModalPositive idForShow={idPerson} handleShowToggle={modalMessageOK}/>}
-       { genderPerson
-            ?<div className="card-person " onClick={modalMessage}>
-                <div>name - {namePerson}, age - {agePerson}, gender - {String(genderPerson)} </div>
+            {show && <Modal idForShow={idPerson} handleShowNext={modalMessageAll} handleShowToggle={modalMessage}/>}
+            {showSecond && <ModalPositive idForShow={idPerson}  handleShowToggle={modalMessageOK}/>}
+            <div className={classNameIsActive} onClick={modalMessage}>
+                <div>№{index} name - {namePerson}, age - {agePerson}, gender - {String(genderPerson)} </div>
             </div>
-            :<div className="card-person is-inactive" onClick={modalMessage}>
-                <div>name - {namePerson}, age - {agePerson}, gender - {String(genderPerson)} </div>
-            </div>}
+
         </div>
     )
 };

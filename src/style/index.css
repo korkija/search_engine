@@ -42,17 +42,35 @@ color: green;
   background: rgba(0, 0, 0, .3);
   position: fixed;
   top: 0;
-  left: 0
+  left: 0;
+  padding: 10px;
+  border-color: green;
+  border-width: 1px ;
 }
 
 .modal {
-  width: 400px;
+  width: 450px;
   height: 100px;
   background: #ffffff;
+  padding: 10px;
+  border-radius: 7px;
+  border-color: green;
+  border-width: 1px ;
+}
+.modal-positive {
+  width: 350px;
+  height: 50px;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 7px;
+  border-color: green;
+  border-width: 1px ;
 }
 
 /* The Modal (background) */
 .modal-wrapper {
+  border-color: green;
+  border-width: 1px ;
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -63,4 +81,68 @@ color: green;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.flex-container{
+  display: flex;
+  align-items:flex-start;
+  justify-content: center;
+}
+.flex-block-filter{
+  flex-grow:1;
+  flex-flow: column wrap;
+  min-width: 250px;
+}
+
+.flex-block-list{
+  flex-grow:4;
+  flex-flow: column wrap;
+  margin-left: 20px;
+}
+.flex-block-test{
+  align-self: stretch;
+  /*flex-flow: column wrap;*/
+}
+
+
+
+.flex-container-for-filter{
+  display: flex;
+  justify-content: flex-start;
+  align-items:stretch;
+  flex-direction:column;
+}
+
+.flex-container-for-modal{
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items:center;
+  align-content:center;
+}
+
+.flex-container-for-modal-positive{
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items:center;
+  align-content:center;
+}
+
+.dropdown-my{
+  border-color: cornflowerblue;
+  border-radius: 5px;
+  margin-left: 10px;
+  width: 100px;
+}
+.gender-dropdown{
+  width: 80px;
+  margin-left: 2px;
+}
+.age-min{
+  margin-left: 1px;
+  margin-right:10px;
+}
+.age-max{
+  margin-left: 1px;
+  margin-right:10px;
 }
