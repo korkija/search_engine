@@ -9,16 +9,17 @@ export const ListPerson = ({peopleFilterForPage,deletePerson}) => {
 
             <div className="container ">
                 {peopleFilterForPage.map((item, index, array) => (
-                    <div key={item._id}>
-                        {((index === 0) || (String(array[index - 1].row)[0] !== String(item.row)[0])) &&
-                        <div>{String(item.row)[0]}</div>}
+                    <div key={item.id}>
+                        {((index === 0) || (String(array[index - 1].first_name)[0] !== String(item.first_name)[0])) &&
+                        <div>{String(item.first_name)[0]}</div>}
                         {(item.show === undefined) &&
                         <CardPerson
-                            namePerson={item.row}
+                            firstNamePerson={item.first_name}
+                            lastNamePerson={item.last_name}
                             index={index}
-                            idPerson={item._id}
-                            agePerson={item.place}
-                            genderPerson={item.booked}
+                            idPerson={item.id}
+                            agePerson={item.dob}
+                            genderPerson={item.gender}
                             deletePerson={(id) => deletePerson(id)}
                         />
                         }

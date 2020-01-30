@@ -41,7 +41,7 @@ class Filters extends React.Component {
     };
     searchName = (e) => {
         this.setState({nameForStart: e.target.value});
-        if (e.target.value.length > 1) {
+        if ((e.target.value.length > 1)||(e.target.value.length===0)) {
             this.setState({name: e.target.value});
             this.timingAndFilter();
         }

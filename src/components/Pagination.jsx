@@ -13,14 +13,16 @@ function itemRender(current, type, originalElement) {
     return originalElement;
 }
 
-export const PaginationMy = ({totalForPages, page, pageChange, pageSizeChange}) => {
+export const PaginationMy = ({totalForPages, page, pageSize, pageChange, pageSizeChange}) => {
     return (
         <Pagination total={totalForPages}
                     current={page}
-                    pageSizeOptions={["10", "20", "50"]}
+                    pageSize={pageSize}
+                    pageSizeOptions={["20", "30", "50"]}
                     showSizeChanger
                     showQuickJumper
                     onChange={pageChange}
-                    onShowSizeChange={pageSizeChange} itemRender={itemRender}/>
+                    // onShowSizeChange={pageSizeChange}
+                    itemRender={itemRender}/>
     )
 };

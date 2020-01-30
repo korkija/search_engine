@@ -21,10 +21,8 @@ const INITIAL_DATA = {
     peopleFilter: [],
     page:1,
     totalForPages:1,
-    pageSize:10,
-
+    pageSize:20,
 };
-
 
 export const people = (state = INITIAL_DATA, action) => {
     switch (action.type) {
@@ -42,8 +40,6 @@ export const people = (state = INITIAL_DATA, action) => {
                 people: action.payLoad,
                 peopleFilter: [...action.payLoad],
                 totalForPages:action.payLoad.length,
-                // genres: genresToState(action.payLoad),
-                // chooseMovie: chooseMovieFunc(action.payLoad)
             };
         }
         case GET_PEOPLE_REJECTED: {
@@ -56,10 +52,12 @@ export const people = (state = INITIAL_DATA, action) => {
         case GET_PAGE: {
             return {
                 ...state,
-                page: action.payLoad,
+                page: action.payLoad[0],
+                totalForPages:action.payLoad[1],
             };
         }
         case GET_SIZE_PAGE: {
+            console.log(action.payLoad);
             return {
                 ...state,
                 pageSize: action.payLoad,
@@ -80,7 +78,7 @@ export const people = (state = INITIAL_DATA, action) => {
                 ageMin: state.ageMinDefault,
                 ageMax: state.ageMaxDefault,
                 peopleFilter: state.people,
-                totalForPages:state.people.length,
+                //totalForPages:state.people.length,
             };
         }
         case GET_AGE_MAX_MIN: {
@@ -97,7 +95,6 @@ export const people = (state = INITIAL_DATA, action) => {
             return {
                 ...state,
                 peopleFilter:action.payLoad,
-                totalForPages:action.payLoad.length,
             };
         }
         default: {

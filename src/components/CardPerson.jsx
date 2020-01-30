@@ -3,8 +3,9 @@ import 'antd/dist/antd.css';
 import '../style/index.css';
 import {Modal} from "./Modal";
 import {ModalPositive} from "./ModalPositive";
+import Icon from "antd/es/icon";
 
-export const CardPerson = ({namePerson, index, idPerson, agePerson, genderPerson, deletePerson}) => {
+export const CardPerson = ({firstNamePerson, lastNamePerson, idPerson, agePerson, genderPerson, deletePerson}) => {
 
     const [show, toggleShow] = useState(false);
     const [showSecond, toggleShowSecond] = useState(false);
@@ -25,7 +26,11 @@ export const CardPerson = ({namePerson, index, idPerson, agePerson, genderPerson
             {show && <Modal idForShow={idPerson} handleShowNext={modalMessageAll} handleShowToggle={modalMessage}/>}
             {showSecond && <ModalPositive idForShow={idPerson}  handleShowToggle={modalMessageOK}/>}
             <div className={classNameIsActive} onClick={modalMessage}>
-                <div>№{index} name - {namePerson}, age - {agePerson}, gender - {String(genderPerson)} </div>
+                <div>
+                    {genderPerson==="male"?<Icon type="man" />:<Icon type="woman" />}
+                    name - {firstNamePerson} {lastNamePerson},
+                    age - {(new Date(Date.now())).getFullYear()-new Date(agePerson).getFullYear()},
+                </div>
             </div>
 
         </div>

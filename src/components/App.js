@@ -19,12 +19,14 @@ export const history = createBrowserHistory();
 
 class App extends React.Component {
     componentDidMount() {
-        this.props.getPeople();
+        console.log("this.props.page");
+        console.log(this.props.page);
+         this.props.getPeople(this.props.page);
     }
 
     render() {
-        let startOfPage = (this.props.page - 1) * this.props.pageSize;
-        let endOfPage = (this.props.page) * this.props.pageSize;
+        // let startOfPage = (this.props.page - 1) * this.props.pageSize;
+        // let endOfPage = (this.props.page) * this.props.pageSize;
         return (
             <Layout>
                 <Router history={history}>
@@ -40,12 +42,14 @@ class App extends React.Component {
 
                                 <div className="flex-block-list">
                                     <ListPerson
-                                        peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
+                                        peopleFilterForPage={this.props.peopleFilter}
+                                        // peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
                                         deletePerson={this.props.getDeletePerson}
                                     />
                                     <PaginationMy totalForPages={this.props.totalForPages}
                                                   page={this.props.page}
-                                                  pageChange={this.props.getPage}
+                                                  pageSize={this.props.pageSize}
+                                                  pageChange={this.props.getPeople}
                                                   pageSizeChange={this.props.getChangeSizePage}/>
                                 </div>
                             </div>
