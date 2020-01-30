@@ -15,7 +15,9 @@ import {
     GET_DELETE_PERSON, SET_PARAM_FILTER, ADD_NOT_SHOW_PERSON,
 } from "../constants";
 
-const getPeoplePending = () => ({type: GET_PEOPLE_PENDING});
+const getPeoplePending = () => ({
+    type: GET_PEOPLE_PENDING
+});
 
 const getPeopleResolved = (payLoad) => ({
     type: GET_PEOPLE_RESOLVED,
@@ -28,22 +30,24 @@ const getPeopleRejected = () => ({
 });
 
 export const getChangeSizePage = (payLoad, payLoadSize) => {
-    return (dispatch) => {
-        let {people} = store.getState();
+    return (dispatch, getState) => {
+        let {people} = getState();
         dispatch(getSizePage(payLoadSize));
         dispatch(getPage(Math.ceil(people.pageSize * payLoad / payLoadSize)));
     }
 };
-export const getSizePage = (payLoad, payLoadSize) => ({
+export const getSizePage = (prop1, prop2) => ({
     type: GET_SIZE_PAGE,
-    payLoad,
-    payLoadSize,
+    payload: {
+        prop1,
+        prop2
+    },    
 });
 
-const getDelete = (payLoad) => {
+const deletePersonByID = (ID) => {
     return {
         type: GET_DELETE_PERSON,
-        payLoad,
+        payload: ID,
     }
 };
 
@@ -54,14 +58,15 @@ const notShowPeople = (payLoad) => {
     }
 };
 
-export const getDeletePerson = (payLoad) => {
-    let {people} = store.getState();
-    const indexPeople = people.people.findIndex((item) => (item.id === payLoad));
-    const indexFilterPeople = people.peopleFilter.findIndex((item) => (item.id === payLoad));
-    return (dispatch) => {
+export const getDeletePerson = (payLoad) =>  (dispatch, getState) => {    
+        const {people} = getState();
+        
+        const indexPeople = people.people.findIndex((item) => (item.id === payLoad));
+        const indexFilterPeople = people.peopleFilter.findIndex((item) => (item.id === payLoad));
+        
         dispatch(notShowPeople(payLoad));
         dispatch(getDelete([indexPeople, indexFilterPeople]));
-    };
+
 };
 
 const getFilterList = (payLoad) => {
@@ -84,9 +89,7 @@ export const getPage = (payLoad) => ({
     payLoad
 });
 
-const unShowPersonOnList = (peopleList) => {
-    const {people} = store.getState();
-    const {notShow} = people;
+const unShowPersonOnList = (peopleList, notShow) => {  
     return peopleList.map(item => {
             //notShow.find(itemIn => item.id === itemIn);
             if (notShow.find(itemIn => item.id === itemIn)) {
@@ -98,9 +101,10 @@ const unShowPersonOnList = (peopleList) => {
 };
 
 function sortOnName(people) {
+    console.log(people);    
+    people = unShowPersonOnList(people);    
     console.log(people);
-    people = unShowPersonOnList(people);
-    console.log(people);
+    
     return people.sort(function (a, b) {
         if (a.first_name[0] < b.first_name[0]) //сортируем строки по возрастанию
             return -1;
@@ -132,6 +136,8 @@ const setParamFilter = (payLoad) => ({
 });
 
 export const getFilter = ({name, ageMin, ageMax, genderChoose}) => {
+    return (dispatch) => {    
+    
     const dateMin = (new Date(Date.now())).getFullYear() - (ageMin);
     const dateMax = (new Date(Date.now())).getFullYear() - (ageMax);
     let {people} = store.getState();
@@ -152,7 +158,7 @@ export const getFilter = ({name, ageMin, ageMax, genderChoose}) => {
         }
     });
     //people.notShow.filter(item=>)
-    return (dispatch) => {
+
         dispatch(getFilterList(filterList));
         dispatch(setParamFilter({name, ageMin, ageMax, genderChoose}));
     };
