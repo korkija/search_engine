@@ -12,7 +12,7 @@ import {
     GET_AGE_MAX_MIN,
     GET_RESET_FILTER,
     GET_FILTER_LIST,
-    GET_DELETE_PERSON,
+    GET_DELETE_PERSON, SET_PARAM_FILTER, ADD_NOT_SHOW_PERSON,
 } from "../constants";
 
 const getPeoplePending = () => ({type: GET_PEOPLE_PENDING});
@@ -46,11 +46,22 @@ const getDelete = (payLoad) => {
         payLoad,
     }
 };
+
+const notShowPeople = (payLoad) => {
+    return {
+        type: ADD_NOT_SHOW_PERSON,
+        payLoad,
+    }
+};
+
 export const getDeletePerson = (payLoad) => {
     let {people} = store.getState();
     const indexPeople = people.people.findIndex((item) => (item.id === payLoad));
     const indexFilterPeople = people.peopleFilter.findIndex((item) => (item.id === payLoad));
-    return getDelete([indexPeople, indexFilterPeople]);
+    return (dispatch) => {
+        dispatch(notShowPeople(payLoad));
+        dispatch(getDelete([indexPeople, indexFilterPeople]));
+    };
 };
 
 const getFilterList = (payLoad) => {
@@ -73,11 +84,24 @@ export const getPage = (payLoad) => ({
     payLoad
 });
 
+const unShowPersonOnList = (peopleList) => {
+    const {people} = store.getState();
+    const {notShow} = people;
+    return peopleList.map(item => {
+            //notShow.find(itemIn => item.id === itemIn);
+            if (notShow.find(itemIn => item.id === itemIn)) {
+                item.show = false;
+            }
+            return item;
+        }
+    )
+};
+
 function sortOnName(people) {
     console.log(people);
+    people = unShowPersonOnList(people);
+    console.log(people);
     return people.sort(function (a, b) {
-        //console.log("a- "+ a.first_name + " b- "+ b.first_name);
-        //console.log(a.first_name > b.first_name);
         if (a.first_name[0] < b.first_name[0]) //сортируем строки по возрастанию
             return -1;
         if (a.first_name[0] > b.first_name[0])
@@ -92,55 +116,60 @@ const getAgeMaxMin = (payLoad) => ({
 });
 
 const findMinMax = (arr) => {
-    const dateNow= (new Date(Date.now())).getFullYear();
+    const dateNow = (new Date(Date.now())).getFullYear();
     let min = dateNow - new Date(arr[0].dob).getFullYear();
     let max = dateNow - new Date(arr[0].dob).getFullYear();
     for (let i = 1, len = arr.length; i < len; i++) {
-        min = (dateNow-new Date(arr[i].dob).getFullYear() < min) ? dateNow-new Date(arr[i].dob).getFullYear() : min;
-        max = (dateNow-new Date(arr[i].dob).getFullYear() > max) ? dateNow-new Date(arr[i].dob).getFullYear() : max;
+        min = (dateNow - new Date(arr[i].dob).getFullYear() < min) ? dateNow - new Date(arr[i].dob).getFullYear() : min;
+        max = (dateNow - new Date(arr[i].dob).getFullYear() > max) ? dateNow - new Date(arr[i].dob).getFullYear() : max;
     }
     return [min, max];
 };
 
+const setParamFilter = (payLoad) => ({
+    type: SET_PARAM_FILTER,
+    payLoad
+});
 
 export const getFilter = ({name, ageMin, ageMax, genderChoose}) => {
-    const dateMin = (new Date(Date.now())).getFullYear()-(ageMin);
-    const dateMax = (new Date(Date.now())).getFullYear()-(ageMax);
+    const dateMin = (new Date(Date.now())).getFullYear() - (ageMin);
+    const dateMax = (new Date(Date.now())).getFullYear() - (ageMax);
     let {people} = store.getState();
     const filterList = people.people.filter(item => {
         if (item.show === undefined) {
             if (genderChoose === "both") {
                 return ((new Date(item.dob)).getFullYear() <= dateMin)
                     && ((new Date(item.dob)).getFullYear() >= dateMax)
-                    && (item.first_name.toLowerCase().indexOf(name.toLowerCase()) > -1)
+                    && ((item.first_name.toLowerCase().indexOf(name.toLowerCase()) > -1) || (item.last_name.toLowerCase().indexOf(name.toLowerCase()) > -1))
             } else {
                 return (item.gender === genderChoose)
                     && ((new Date(item.dob)).getFullYear() <= dateMin)
                     && ((new Date(item.dob)).getFullYear() >= dateMax)
-                    && (item.first_name.toLowerCase().indexOf(name.toLowerCase()) > -1)
+                    && ((item.first_name.toLowerCase().indexOf(name.toLowerCase()) > -1) || (item.last_name.toLowerCase().indexOf(name.toLowerCase()) > -1))
             }
         } else {
             return false;
         }
     });
-    //getFilterList(filterList);
+    //people.notShow.filter(item=>)
     return (dispatch) => {
         dispatch(getFilterList(filterList));
+        dispatch(setParamFilter({name, ageMin, ageMax, genderChoose}));
     };
 };
 
 export const getPeople = (page) => {
     return (dispatch) => {
         dispatch(getPeoplePending());
-        const urlPage=URL_PEOPLE+page+URL_PEOPLE_PARAMS;
-        console.log("urlPage");
-        console.log(urlPage);
+        const urlPage = URL_PEOPLE + page + URL_PEOPLE_PARAMS;
         axios.get(urlPage)
             .then(({data}) => {
                 dispatch(getAgeMaxMin(findMinMax(data.result)));
                 dispatch(getPeopleResolved(sortOnName(data.result)));
-                console.log(data._meta);
-                dispatch(getPage([data._meta.currentPage,data._meta.pageCount]));
+                let {people} = store.getState();
+                let {name, ageMinFilter: ageMin, ageMaxFilter: ageMax, genderChoose} = people;
+                dispatch(getFilter({name, ageMin, ageMax, genderChoose}));
+                dispatch(getPage([data._meta.currentPage, data._meta.pageCount]));
             })
             .catch((error) => {
                 console.log(error);

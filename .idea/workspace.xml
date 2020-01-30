@@ -5,10 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actions/people.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/people.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardPerson.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardPerson.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Filters.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Filters.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ListPeople.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListPeople.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Pagination.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Pagination.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/people.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/people.js" afterDir="false" />
     </list>
@@ -78,7 +75,7 @@
       <workItem from="1580058573373" duration="18312000" />
       <workItem from="1580212725274" duration="1850000" />
       <workItem from="1580289113054" duration="10835000" />
-      <workItem from="1580371211386" duration="8372000" />
+      <workItem from="1580371211386" duration="18479000" />
     </task>
     <task id="LOCAL-00001" summary="error with dispatch">
       <created>1580045533669</created>
@@ -101,7 +98,21 @@
       <option name="project" value="LOCAL" />
       <updated>1580156514391</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="url + page">
+      <created>1580382662424</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1580382662424</updated>
+    </task>
+    <task id="LOCAL-00005" summary="readme">
+      <created>1580382785187</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1580382785187</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,17 +122,19 @@
     <MESSAGE value="error with dispatch" />
     <MESSAGE value="+flex" />
     <MESSAGE value="cleaning" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaning" />
+    <MESSAGE value="url + page" />
+    <MESSAGE value="readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme" />
   </component>
   <component name="WindowStateProjectService">
     <state x="169" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579764976757">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="169" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1579764976757" />
-    <state x="528" y="13" key="CommitChangelistDialog2" timestamp="1580382661256">
+    <state x="528" y="13" key="CommitChangelistDialog2" timestamp="1580382784379">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="528" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1580382661256" />
+    <state x="528" y="13" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1580382784379" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1580045401581">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -134,13 +147,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="388" y="137" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1580301329443" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1580382674920">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1580382789297">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1580382674920" />
-    <state x="756" y="158" width="609" height="536" key="find.popup" timestamp="1580380748310">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1580382789297" />
+    <state x="756" y="158" width="609" height="665" key="find.popup" timestamp="1580388839282">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="756" y="158" width="609" height="536" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1580380748310" />
+    <state x="756" y="158" width="609" height="665" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1580388839282" />
   </component>
 </project>

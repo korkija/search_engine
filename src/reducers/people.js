@@ -8,6 +8,7 @@ import {
     GET_RESET_FILTER,
     GET_FILTER_LIST,
     GET_DELETE_PERSON,
+    SET_PARAM_FILTER, ADD_NOT_SHOW_PERSON,
 } from "../constants";
 
 const INITIAL_DATA = {
@@ -16,9 +17,13 @@ const INITIAL_DATA = {
     ageMaxDefault:100,
     ageMin:0,
     ageMax:100,
-    nameSearch:"",
+    ageMinFilter:0,
+    ageMaxFilter:100,
+    name:"",
+    genderChoose:"both",
     people: [],
     peopleFilter: [],
+    notShow: [],
     page:1,
     totalForPages:1,
     pageSize:20,
@@ -27,6 +32,7 @@ const INITIAL_DATA = {
 export const people = (state = INITIAL_DATA, action) => {
     switch (action.type) {
         case GET_PEOPLE_PENDING: {
+            console.log("---GET_PEOPLE_PENDING------state "+state.genderChoose);
             return {
                 ...state,
                 isLoading: true,
@@ -72,29 +78,53 @@ export const people = (state = INITIAL_DATA, action) => {
                 peopleFilter:state.peopleFilter.filter(item => {return item.show === undefined}),
             };
         }
+        case ADD_NOT_SHOW_PERSON: {
+            state.notShow.push(action.payLoad);
+            console.log(state.notShow);
+            return {
+                ...state,
+                notShow: state.notShow,
+            };
+        }
         case GET_RESET_FILTER: {
+            console.log("reset filter");
             return {
                 ...state,
                 ageMin: state.ageMinDefault,
                 ageMax: state.ageMaxDefault,
                 peopleFilter: state.people,
+                name:"",
+                genderChoose:"both",
                 //totalForPages:state.people.length,
             };
         }
         case GET_AGE_MAX_MIN: {
+            console.log("----GET_AGE_MAX_MIN-------state "+state.genderChoose);
             return {
                 ...state,
                 ageMinDefault:action.payLoad[0],
                 ageMaxDefault:action.payLoad[1],
                 ageMin:action.payLoad[0],
                 ageMax:action.payLoad[1],
-                nameSearch:"",
+
             };
         }
         case GET_FILTER_LIST: {
             return {
                 ...state,
                 peopleFilter:action.payLoad,
+            };
+        }
+        case SET_PARAM_FILTER: {
+            console.log("action.payLoad");
+            console.log(action.payLoad);
+            return {
+                ...state,
+                ageMinFilter:action.payLoad.ageMin,
+                ageMaxFilter:action.payLoad.ageMax,
+                nameSearch:action.payLoad.nameSearch,
+                genderChoose:action.payLoad.genderChoose,
+                name:action.payLoad.name,
             };
         }
         default: {

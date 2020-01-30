@@ -15,36 +15,37 @@ class Filters extends React.Component {
         ageMin: this.props.ageMinDefault,
         ageMax: this.props.ageMaxDefault,
         gender: ["both", "female", "male"],
-        genderChoose: "both",
-        nameForStart: "",
-        name: "",
+        genderChoose: this.props.gender,
+        nameForStart: this.props.name,
+        name: this.props.name,
     };
 
     onChange = value => {
         this.setState({
             ageMin: value[0],
             ageMax: value[1],
-        });
-        this.timingAndFilter();
+        }, this.timingAndFilter);
     };
     onChange1 = value => {
         this.setState({
             ageMin: value,
-        });
-        this.timingAndFilter();
+        }, this.timingAndFilter);
     };
     onChange2 = value => {
         this.setState({
             ageMax: value,
-        });
-        this.timingAndFilter();
+        }, this.timingAndFilter);
     };
     searchName = (e) => {
+        console.log(e);
         this.setState({nameForStart: e.target.value});
-        if ((e.target.value.length > 1)||(e.target.value.length===0)) {
-            this.setState({name: e.target.value});
-            this.timingAndFilter();
-        }
+            console.log(e);
+
+            if ((e.target.value.length > 1) || (e.target.value.length === 0)) {
+                this.setState({name: e.target.value});
+                this.timingAndFilter();
+            }
+
     };
 
     timingAndFilter = () => {
@@ -79,7 +80,8 @@ class Filters extends React.Component {
                 }
             </Menu>
         );
-
+        console.log("this.props.ageMin");
+        console.log(this.props.ageMin);
         return (
             <div className="flex-container-for-filter">
                 Name:
@@ -123,7 +125,7 @@ class Filters extends React.Component {
                 <div className="flex-block-test">
                     gender:
                     <Dropdown className="gender-dropdown" overlay={menu}>
-                        <Button >
+                        <Button>
                             <span className="filter1">{genderChoose}</span><Icon type="down"/>
                         </Button>
                     </Dropdown>
@@ -140,6 +142,8 @@ const mapStateToProps = (state) => ({
     ageMax: state.people.ageMax,
     ageMinDefault: state.people.ageMinDefault,
     ageMaxDefault: state.people.ageMaxDefault,
+    name:state.people.name,
+    gender: state.people.genderChoose,
 });
 
 const mapDispatchToProps = {

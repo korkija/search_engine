@@ -32,20 +32,22 @@ class App extends React.Component {
                 <Router history={history}>
                     <Header><h1>LOGO :)</h1></Header>
                     <Content style={{padding: '0 50px', marginTop: 64}}>
-                        {this.props.isLoading
-                            ? <div>Loading</div>
-                            :
+
                             <div className="flex-container">
                                 <div className="flex-block-filter">
                                     <MyFilters/>
                                 </div>
 
                                 <div className="flex-block-list">
-                                    <ListPerson
-                                        peopleFilterForPage={this.props.peopleFilter}
-                                        // peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
-                                        deletePerson={this.props.getDeletePerson}
-                                    />
+                                    {this.props.isLoading
+                                        ? <div>Loading</div>
+                                        :
+                                        <ListPerson
+                                            peopleFilterForPage={this.props.peopleFilter}
+                                            // peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
+                                            deletePerson={this.props.getDeletePerson}
+                                        />
+                                    }
                                     <PaginationMy totalForPages={this.props.totalForPages}
                                                   page={this.props.page}
                                                   pageSize={this.props.pageSize}
@@ -53,7 +55,7 @@ class App extends React.Component {
                                                   pageSizeChange={this.props.getChangeSizePage}/>
                                 </div>
                             </div>
-                        }
+
                     </Content>
                 </Router>
                 <Footer>Ant Disegn ©2020Created by Ant UED</Footer>
