@@ -5,7 +5,7 @@ import {Modal} from "./Modal";
 import {ModalPositive} from "./ModalPositive";
 import Icon from "antd/es/icon";
 
-export const CardPerson = ({firstNamePerson, lastNamePerson, idPerson, agePerson, genderPerson, deletePerson}) => {
+export const CardPerson = ({firstNamePerson, lastNamePerson, idPerson, agePerson, genderPerson, findForDeletePerson}) => {
 
     const [show, toggleShow] = useState(false);
     const [showSecond, toggleShowSecond] = useState(false);
@@ -17,7 +17,7 @@ export const CardPerson = ({firstNamePerson, lastNamePerson, idPerson, agePerson
         toggleShowSecond(!showSecond);
     };
     const modalMessageOK = (id) => {
-        deletePerson(id);
+        findForDeletePerson(id);
         toggleShowSecond(!showSecond);
     };
     const classNameIsActive = genderPerson ? "card-person" : "card-person is-inactive";

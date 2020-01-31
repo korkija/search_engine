@@ -8,14 +8,15 @@ import {createBrowserHistory} from "history";
 import '../style/App.css';
 import 'antd/dist/antd.css';
 import '../style/index.css';
-import {getPage, getPeople, getChangeSizePage, getDeletePerson} from "../actions/people";
+import {getPage, getPeople, getChangeSizePage, findForDeletePerson} from "../actions/people";
 import {MyFilters} from "./Filters";
 import {PaginationMy} from "./Pagination";
 import {ListPerson} from "./ListPeople";
+import {setFilter} from "../helpers/filterList";
+import {sortByName} from "../helpers/SortByName";
+export const history = createBrowserHistory();
 
 const {Content, Footer, Header} = Layout;
-
-export const history = createBrowserHistory();
 
 class App extends React.Component {
     componentDidMount() {
@@ -25,8 +26,6 @@ class App extends React.Component {
     }
 
     render() {
-        // let startOfPage = (this.props.page - 1) * this.props.pageSize;
-        // let endOfPage = (this.props.page) * this.props.pageSize;
         return (
             <Layout>
                 <Router history={history}>
@@ -37,7 +36,6 @@ class App extends React.Component {
                                 <div className="flex-block-filter">
                                     <MyFilters/>
                                 </div>
-
                                 <div className="flex-block-list">
                                     {this.props.isLoading
                                         ? <div>Loading</div>
@@ -45,7 +43,7 @@ class App extends React.Component {
                                         <ListPerson
                                             peopleFilterForPage={this.props.peopleFilter}
                                             // peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
-                                            deletePerson={this.props.getDeletePerson}
+                                            FindForDeletePerson={this.props.findForDeletePerson}
                                         />
                                     }
                                     <PaginationMy totalForPages={this.props.totalForPages}
@@ -55,7 +53,6 @@ class App extends React.Component {
                                                   pageSizeChange={this.props.getChangeSizePage}/>
                                 </div>
                             </div>
-
                     </Content>
                 </Router>
                 <Footer>Ant Disegn ©2020Created by Ant UED</Footer>
@@ -69,14 +66,14 @@ const mapStateToProps = (state) => ({
     totalForPages: state.people.totalForPages,
     page: state.people.page,
     pageSize: state.people.pageSize,
-    peopleFilter: state.people.peopleFilter,
+    peopleFilter: setFilter(state.people.name, state.people.ageMinFilter, state.people.ageMaxFilter, state.people.genderChoose, sortByName(state.people.people,state.people.notShow)),// state.people.peopleFilter,
 });
 
 const mapDispatchToProps = {
     getPeople,
     getChangeSizePage,
     getPage,
-    getDeletePerson,
+    findForDeletePerson,
 };
 export const MyApp = connect(
     mapStateToProps,

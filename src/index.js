@@ -10,5 +10,4 @@ ReactDOM.render(
         <MyApp />
     </Provider>
     , document.getElementById('root'));
-//ReactDOM.render(<ButtonCounter />, document.getElementById('root'));
 

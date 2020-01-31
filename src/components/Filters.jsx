@@ -3,10 +3,9 @@ import {connect} from "react-redux";
 
 import 'antd/dist/antd.css';
 import '../style/index.css';
-//import {store} from "../store";
 import 'antd/dist/antd.css';
 import {Slider, InputNumber, Menu, Dropdown, Button, Input, Icon} from 'antd';
-import {getFilter, getResetFilter} from "../actions/people";
+import {setParamFilter, resetFilter} from "../actions/people";
 
 const {Search} = Input;
 
@@ -37,25 +36,22 @@ class Filters extends React.Component {
         }, this.timingAndFilter);
     };
     searchName = (e) => {
-        console.log(e);
         this.setState({nameForStart: e.target.value});
-            console.log(e);
-
             if ((e.target.value.length > 1) || (e.target.value.length === 0)) {
                 this.setState({name: e.target.value});
                 this.timingAndFilter();
             }
-
     };
 
     timingAndFilter = () => {
         setTimeout((() => {
-            this.props.getFilter(this.state);
+            console.log(this.state);
+            this.props.setParamFilter(this.state);
         }), 400);
     };
 
     reset = () => {
-        this.props.getResetFilter();
+        this.props.resetFilter();
         this.onChange([this.props.ageMinDefault, this.props.ageMaxDefault]);
         this.setState({name: ""});
         this.setState({nameForStart: ""});
@@ -69,7 +65,6 @@ class Filters extends React.Component {
 
     render() {
         const {ageMin, ageMax, nameForStart, gender, genderChoose} = this.state;
-
         const menu = (
             <Menu onClick={this.handleMenuClick}>
                 {
@@ -80,8 +75,6 @@ class Filters extends React.Component {
                 }
             </Menu>
         );
-        console.log("this.props.ageMin");
-        console.log(this.props.ageMin);
         return (
             <div className="flex-container-for-filter">
                 Name:
@@ -147,8 +140,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    getResetFilter,
-    getFilter,
+    resetFilter,
+    setParamFilter,
 };
 export const MyFilters = connect(
     mapStateToProps,

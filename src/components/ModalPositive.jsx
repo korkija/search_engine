@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 export class ModalPositive extends React.Component {
-
     constructor(props) {
         super(props);
         this.root = document.createElement("div");
@@ -13,12 +12,6 @@ export class ModalPositive extends React.Component {
     componentWillUnmount() {
         this.root.remove();
     }
-
-    // handleSelect = (id) => {
-    //     console.log("getDeletePerson");
-    //     this.props.handleShowToggle();
-    //     this.props.getDeletePerson(id);
-    // };
 
     render() {
         return ReactDOM.createPortal(
@@ -36,18 +29,3 @@ export class ModalPositive extends React.Component {
             this.root)
     }
 }
-// const
-//     mapStateToProps = (state) => ({
-//     });
-// const
-//     mapDispatchToProps = {
-//        // getDeletePerson,
-//     };
-// export const
-//     ModalPositive = connect(
-//         mapStateToProps,
-//         mapDispatchToProps
-//     )(modalPositive);
-//
-
-//
