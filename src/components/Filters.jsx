@@ -37,18 +37,17 @@ class Filters extends React.Component {
     };
     searchName = (e) => {
         this.setState({nameForStart: e.target.value});
-            if ((e.target.value.length > 1) || (e.target.value.length === 0)) {
-                this.setState({name: e.target.value});
-                this.timingAndFilter();
-            }
+        if ((e.target.value.length > 1) || (e.target.value.length === 0)) {
+            this.setState({name: e.target.value});
+            this.timingAndFilter();
+        }
     };
 
-    timingAndFilter = () => {
-        setTimeout((() => {
-            console.log(this.state);
+    timingAndFilter = () => setTimeout(
+        (() => {
             this.props.setParamFilter(this.state);
         }), 400);
-    };
+
 
     reset = () => {
         this.props.resetFilter();
@@ -135,7 +134,7 @@ const mapStateToProps = (state) => ({
     ageMax: state.people.ageMax,
     ageMinDefault: state.people.ageMinDefault,
     ageMaxDefault: state.people.ageMaxDefault,
-    name:state.people.name,
+    name: state.people.name,
     gender: state.people.genderChoose,
 });
 

@@ -1,5 +1,5 @@
 export const setFilter = (name, ageMin, ageMax, genderChoose, people) => {
-    const dateNow=(new Date(Date.now())).getFullYear();
+    const dateNow = (new Date(Date.now())).getFullYear();
     const dateMin = dateNow - (ageMin);
     const dateMax = dateNow - (ageMax);
     return people.filter(item => {

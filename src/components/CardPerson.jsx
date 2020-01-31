@@ -24,12 +24,12 @@ export const CardPerson = ({firstNamePerson, lastNamePerson, idPerson, agePerson
     return (
         <div>
             {show && <Modal idForShow={idPerson} handleShowNext={modalMessageAll} handleShowToggle={modalMessage}/>}
-            {showSecond && <ModalPositive idForShow={idPerson}  handleShowToggle={modalMessageOK}/>}
+            {showSecond && <ModalPositive idForShow={idPerson} handleShowToggle={modalMessageOK}/>}
             <div className={classNameIsActive} onClick={modalMessage}>
                 <div>
-                    {genderPerson==="male"?<Icon type="man" />:<Icon type="woman" />}
+                    {genderPerson === "male" ? <Icon type="man"/> : <Icon type="woman"/>}
                     name - {firstNamePerson} {lastNamePerson},
-                    age - {(new Date(Date.now())).getFullYear()-new Date(agePerson).getFullYear()},
+                    age - {(new Date(Date.now())).getFullYear() - new Date(agePerson).getFullYear()},
                 </div>
             </div>
 

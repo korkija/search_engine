@@ -29,12 +29,10 @@ const getPeopleRejected = () => ({
     payLoad: "Something wrong!"
 });
 
-export const getChangeSizePage = (payLoad, payLoadSize) => {
-    return (dispatch, getState) => {
-        let {people} = getState();
-        dispatch(setSizePage(payLoadSize));
-        dispatch(getPage(Math.ceil(people.pageSize * payLoad / payLoadSize)));
-    }
+export const getChangeSizePage = (payLoad, payLoadSize) => (dispatch, getState) => {
+    let {people} = getState();
+    dispatch(setSizePage(payLoadSize));
+    dispatch(getPage(Math.ceil(people.pageSize * payLoad / payLoadSize)));
 };
 export const setSizePage = (pageSize) => ({
     type: GET_SIZE_PAGE,
@@ -53,20 +51,18 @@ const notShowPeople = (ID) => ({
     payLoad: ID,
 });
 
-export const findForDeletePerson = (ID) => {
-    return (dispatch, getState) => {
-        const {people} = getState();
-        const indexPeople = people.people.findIndex((item) => (item.id === ID));
-        dispatch(notShowPeople(ID));
-        dispatch(deletePerson(indexPeople));
-    };
+export const findForDeletePerson = (ID) => (dispatch, getState) => {
+    const {people} = getState();
+    const indexPeople = people.people.findIndex((item) => (item.id === ID));
+    dispatch(notShowPeople(ID));
+    dispatch(deletePerson(indexPeople));
 };
 
 export const resetFilter = () => ({
     type: GET_RESET_FILTER
 });
 
-export const getPage = (currentPage,pageCount) => ({
+export const getPage = (currentPage, pageCount) => ({
     type: GET_PAGE,
     payLoad: {
         currentPage,
@@ -88,27 +84,26 @@ export const setParamFilter = ({name, ageMin, ageMax, genderChoose}) => ({
         name,
         ageMin,
         ageMax,
-        genderChoose}
+        genderChoose
+    }
 });
 
-export const getPeople = (page) => {
-    return (dispatch, getState) => {
-        dispatch(getPeoplePending());
-        const urlPage = URL_PEOPLE + page + URL_PEOPLE_PARAMS;
-        axios.get(urlPage)
-            .then(({data}) => {
-                const {people} = getState();
-                dispatch(setAgeMaxMin(findMinMax(data.result)));
-                dispatch(getPeopleResolved(sortByName(data.result, people.notShow)));
-                const {name, ageMinFilter: ageMin, ageMaxFilter: ageMax, genderChoose} = people;
-                dispatch(setParamFilter({name, ageMin, ageMax, genderChoose}));
-                dispatch(getPage(data._meta.currentPage, data._meta.pageCount));
-            })
-            .catch((error) => {
-                console.log(error);
-                dispatch(getPeopleRejected());
-            })
-    };
+export const getPeople = (page) => (dispatch, getState) => {
+    dispatch(getPeoplePending());
+    const urlPage = URL_PEOPLE + page + URL_PEOPLE_PARAMS;
+    axios.get(urlPage)
+        .then(({data}) => {
+            const {people} = getState();
+            dispatch(setAgeMaxMin(findMinMax(data.result)));
+            dispatch(getPeopleResolved(sortByName(data.result, people.notShow)));
+            const {name, ageMinFilter: ageMin, ageMaxFilter: ageMax, genderChoose} = people;
+            dispatch(setParamFilter({name, ageMin, ageMax, genderChoose}));
+            dispatch(getPage(data._meta.currentPage, data._meta.pageCount));
+        })
+        .catch((error) => {
+            console.log(error);
+            dispatch(getPeopleRejected());
+        })
 };
 
 

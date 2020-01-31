@@ -13,11 +13,12 @@ export class Modal extends React.Component {
     componentWillUnmount() {
         this.root.remove();
     }
+
     render() {
         return ReactDOM.createPortal(
             <div className=" portal-wrapper">
-                <div className="modal flex-container-for-modal" >
-                    <div >
+                <div className="modal flex-container-for-modal">
+                    <div>
                         Вы действительно хотите пригласить на свидание пользователя с id = {this.props.idForShow}?
                     </div>
                     <div>

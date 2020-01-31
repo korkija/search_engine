@@ -22,7 +22,7 @@ export const PaginationMy = ({totalForPages, page, pageSize, pageChange, pageSiz
                     showSizeChanger
                     showQuickJumper
                     onChange={pageChange}
-                    // onShowSizeChange={pageSizeChange}
+            // onShowSizeChange={pageSizeChange}
                     itemRender={itemRender}/>
     )
 };

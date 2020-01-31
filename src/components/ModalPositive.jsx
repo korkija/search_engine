@@ -15,17 +15,18 @@ export class ModalPositive extends React.Component {
 
     render() {
         return ReactDOM.createPortal(
-                <div className="portal-wrapper">
-                    <div className="modal-positive flex-container-for-modal-positive">
-                        <div>
-                            Приглашение отправлено
-                        </div>
-                        <div>
-                            <button className="dropdown-my" onClick={() => this.props.handleShowToggle(this.props.idForShow)}>Ok
-                            </button>
-                        </div>
+            <div className="portal-wrapper">
+                <div className="modal-positive flex-container-for-modal-positive">
+                    <div>
+                        Приглашение отправлено
                     </div>
-                </div>,
+                    <div>
+                        <button className="dropdown-my"
+                                onClick={() => this.props.handleShowToggle(this.props.idForShow)}>Ok
+                        </button>
+                    </div>
+                </div>
+            </div>,
             this.root)
     }
 }
