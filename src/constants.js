@@ -2,7 +2,7 @@ export const GET_PEOPLE_PENDING = "GET_PEOPLE_PENDING";
 export const GET_PEOPLE_RESOLVED = "GET_PEOPLE_RESOLVED";
 export const GET_PEOPLE_REJECTED = "GET_PEOPLE_REJECTED";
 export const URL_PEOPLE = "https://gorest.co.in/public-api/users?page=";
-export const URL_PEOPLE_PARAMS = "&_format=json&access-token=ds_kTi3zUJQ-rwGqxVK9SDQfYPQd3yEs7vtg";
+export const URL_PEOPLE_PARAMS = "&_format=json&access-token=KE6Y7aFOYcfT935z76adR0FvtJ6ZmGledlln";
 
 export const GET_PAGE = "GET_PAGE";
 export const GET_SIZE_PAGE = "GET_SIZE_PAGE";

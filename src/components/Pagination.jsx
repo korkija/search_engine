@@ -12,13 +12,14 @@ function itemRender(current, type, originalElement) {
     }
     return originalElement;
 }
+const pageSizeArr=["20", "30", "50"];
 
 export const PaginationMy = ({totalForPages, page, pageSize, pageChange, pageSizeChange}) => {
     return (
         <Pagination total={totalForPages}
                     current={page}
                     pageSize={pageSize}
-                    pageSizeOptions={["20", "30", "50"]}
+                    pageSizeOptions={pageSizeArr}
                     showSizeChanger
                     showQuickJumper
                     onChange={pageChange}

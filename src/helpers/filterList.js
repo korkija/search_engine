@@ -8,12 +8,12 @@ export const setFilter = (name, ageMin, ageMax, genderChoose, people) => {
             if (genderChoose === "both") {
                 return (itemYears <= dateMin)
                     && (itemYears >= dateMax)
-                    && ((item.first_name.toLowerCase().indexOf(name.toLowerCase()) > -1) || (item.last_name.toLowerCase().indexOf(name.toLowerCase()) > -1))
+                    && (`${item.first_name.toLowerCase()} ${item.last_name.toLowerCase()}`.indexOf(name.toLowerCase()) > -1)
             } else {
                 return (item.gender === genderChoose)
                     && (itemYears <= dateMin)
                     && (itemYears >= dateMax)
-                    && ((item.first_name.toLowerCase().indexOf(name.toLowerCase()) > -1) || (item.last_name.toLowerCase().indexOf(name.toLowerCase()) > -1))
+                    && (`${item.first_name.toLowerCase()} ${item.last_name.toLowerCase()}`.indexOf(name.toLowerCase()) > -1)
             }
         } else {
             return false;

@@ -13,24 +13,25 @@ class Filters extends React.Component {
     state = {
         ageMin: this.props.ageMinDefault,
         ageMax: this.props.ageMaxDefault,
-        gender: ["both", "female", "male"],
+        //gender: ["both", "female", "male"],
         genderChoose: this.props.gender,
         nameForStart: this.props.name,
         name: this.props.name,
     };
 
-    onChange = value => {
+    gender=["both", "female", "male"];
+    onChangeSlider = value => {
         this.setState({
             ageMin: value[0],
             ageMax: value[1],
         }, this.timingAndFilter);
     };
-    onChange1 = value => {
+    onChangeMinAge = value => {
         this.setState({
             ageMin: value,
         }, this.timingAndFilter);
     };
-    onChange2 = value => {
+    onChangeMaxAge = value => {
         this.setState({
             ageMax: value,
         }, this.timingAndFilter);
@@ -51,23 +52,24 @@ class Filters extends React.Component {
 
     reset = () => {
         this.props.resetFilter();
-        this.onChange([this.props.ageMinDefault, this.props.ageMaxDefault]);
+        this.onChangeSlider([this.props.ageMinDefault, this.props.ageMaxDefault]);
         this.setState({name: ""});
         this.setState({nameForStart: ""});
-        this.setState({genderChoose: this.state.gender[0]});
+        this.setState({genderChoose: this.gender[0]});
     };
     handleMenuClick = (e) => {
         this.setState({genderChoose: e.item.props.children});
-        document.querySelector(".filter1").textContent = e.item.props.children;
+       // document.querySelector(".filter1").textContent = e.item.props.children;
+        this.setState({genderChoose: e.item.props.children},this.timingAndFilter);
         this.timingAndFilter();
     };
 
     render() {
-        const {ageMin, ageMax, nameForStart, gender, genderChoose} = this.state;
+        const {ageMin, ageMax, nameForStart, genderChoose} = this.state;
         const menu = (
             <Menu onClick={this.handleMenuClick}>
                 {
-                    gender.map((item, i) =>
+                    this.gender.map((item, i) =>
                         <Menu.Item key={i}>
                             {item}
                         </Menu.Item>)
@@ -94,7 +96,7 @@ class Filters extends React.Component {
                             defaultValue={[this.props.ageMin, this.props.ageMax]}
                             value={[typeof ageMin === 'number' ? ageMin : this.props.ageMin, typeof ageMax === 'number' ? ageMax : this.props.ageMax]}
                             tooltipVisible
-                            onChange={this.onChange}
+                            onChange={this.onChangeSlider}
                     />
                     from:
                     <InputNumber
@@ -102,7 +104,7 @@ class Filters extends React.Component {
                         min={this.props.ageMin}
                         max={this.props.ageMax}
                         value={ageMin}
-                        onChange={this.onChange1}
+                        onChange={this.onChangeMinAge}
                     />
                     to:
                     <InputNumber
@@ -111,7 +113,7 @@ class Filters extends React.Component {
                         max={this.props.ageMax}
                         style={{marginLeft: 1}}
                         value={ageMax}
-                        onChange={this.onChange2}
+                        onChange={this.onChangeMaxAge}
                     />
                 </div>
                 <div className="flex-block-test">

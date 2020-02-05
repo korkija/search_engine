@@ -29,7 +29,7 @@ class App extends React.Component {
             <Layout>
                 <Router history={history}>
                     <Header><h1>LOGO :)</h1></Header>
-                    <Content style={{padding: '0 50px', marginTop: 64}}>
+                    <Content className="content">
 
                         <div className="flex-container">
                             <div className="flex-block-filter">
@@ -42,7 +42,7 @@ class App extends React.Component {
                                     <ListPerson
                                         peopleFilterForPage={this.props.peopleFilter}
                                         // peopleFilterForPage={this.props.peopleFilter.slice(startOfPage, endOfPage)}
-                                        FindForDeletePerson={this.props.findForDeletePerson}
+                                        findForDeletePerson={this.props.findForDeletePerson}
                                     />
                                 }
                                 <PaginationMy totalForPages={this.props.totalForPages}

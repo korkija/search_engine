@@ -146,3 +146,7 @@ color: green;
   margin-left: 1px;
   margin-right:10px;
 }
+.content{
+  padding: 0 50px;
+  margin-top: 64px;
+}

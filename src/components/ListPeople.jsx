@@ -18,7 +18,7 @@ export const ListPerson = ({peopleFilterForPage, findForDeletePerson}) => {
                         idPerson={item.id}
                         agePerson={item.dob}
                         genderPerson={item.gender}
-                        FindForDeletePerson={(id) => findForDeletePerson(id)}
+                        findForDeletePerson={findForDeletePerson}
                     />
                     }
                 </div>
