@@ -97,6 +97,8 @@ export const getPeople = (page) => (dispatch, getState) => {
             dispatch(setAgeMaxMin(findMinMax(data.result)));
             dispatch(getPeopleResolved(sortByName(data.result, people.notShow)));
             const {name, ageMinFilter: ageMin, ageMaxFilter: ageMax, genderChoose} = people;
+            //console.log("[ageMinFilter,ageMaxFilter]");
+            //console.log([ageMin,ageMax]);
             dispatch(setParamFilter({name, ageMin, ageMax, genderChoose}));
             dispatch(getPage(data._meta.currentPage, data._meta.pageCount));
         })

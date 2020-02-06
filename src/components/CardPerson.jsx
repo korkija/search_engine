@@ -5,7 +5,7 @@ import {Modal} from "./Modal";
 import {ModalPositive} from "./ModalPositive";
 import Icon from "antd/es/icon";
 
-export const CardPerson = ({firstNamePerson, lastNamePerson, idPerson, agePerson, genderPerson, findForDeletePerson}) => {
+export const CardPerson = ({firstNamePerson, lastNamePerson,index, idPerson, agePerson, genderPerson, findForDeletePerson}) => {
 
     const [show, toggleShow] = useState(false);
     const [showSecond, toggleShowSecond] = useState(false);
@@ -27,6 +27,7 @@ export const CardPerson = ({firstNamePerson, lastNamePerson, idPerson, agePerson
             {showSecond && <ModalPositive idForShow={idPerson} handleShowToggle={modalMessageOK}/>}
             <div className={classNameIsActive} onClick={modalMessage}>
                 <div>
+                    {index+1} - {idPerson} -
                     {genderPerson === "male" ? <Icon type="man"/> : <Icon type="woman"/>}
                     name - {firstNamePerson} {lastNamePerson},
                     age - {(new Date(Date.now())).getFullYear() - new Date(agePerson).getFullYear()},

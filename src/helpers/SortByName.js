@@ -1,7 +1,5 @@
-import {unShowPersonOnList} from "./unShowPerson";
 
-export const sortByName =(people,notShow)=> {
-    people = unShowPersonOnList(people,notShow);
+export const sortByName =(people)=> {
     return people.sort(function (a, b) {
         if (a.first_name[0] < b.first_name[0]) //сортируем строки по возрастанию
             return -1;

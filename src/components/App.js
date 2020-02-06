@@ -14,6 +14,7 @@ import {PaginationMy} from "./Pagination";
 import {ListPerson} from "./ListPeople";
 import {setFilter} from "../helpers/filterList";
 import {sortByName} from "../helpers/SortByName";
+import {unShowPersonOnList} from "../helpers/unShowPerson";
 
 export const history = createBrowserHistory();
 
@@ -65,7 +66,11 @@ const mapStateToProps = (state) => ({
     totalForPages: state.people.totalForPages,
     page: state.people.page,
     pageSize: state.people.pageSize,
-    peopleFilter: setFilter(state.people.name, state.people.ageMinFilter, state.people.ageMaxFilter, state.people.genderChoose, sortByName(state.people.people, state.people.notShow)),// state.people.peopleFilter,
+    peopleFilter: setFilter(state.people.name,
+        state.people.ageMinFilter,
+        state.people.ageMaxFilter,
+        state.people.genderChoose,
+        sortByName(unShowPersonOnList(state.people.people, state.people.notShow))),// state.people.peopleFilter,
 });
 
 const mapDispatchToProps = {

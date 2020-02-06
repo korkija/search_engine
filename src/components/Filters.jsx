@@ -19,8 +19,24 @@ class Filters extends React.Component {
         name: this.props.name,
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if ((prevProps.ageMinDefault!==this.props.ageMinDefault)||(prevProps.ageMaxDefault!==this.props.ageMaxDefault)) {
+            if (this.props.ageMinFilter === -1) {
+                this.setState({
+                    ageMin: this.props.ageMinDefault
+                });
+            }
+            if (this.props.ageMaxFilter === 1000) {
+                this.setState({
+                    ageMax: this.props.ageMaxDefault
+                });
+            }
+        }
+    }
+
     gender=["both", "female", "male"];
     onChangeSlider = value => {
+        console.log("onChangeSlider");
         this.setState({
             ageMin: value[0],
             ageMax: value[1],
@@ -39,14 +55,17 @@ class Filters extends React.Component {
     searchName = (e) => {
         this.setState({nameForStart: e.target.value});
         if ((e.target.value.length > 1) || (e.target.value.length === 0)) {
-            this.setState({name: e.target.value});
-            this.timingAndFilter();
+            this.setState({name: e.target.value},
+         this.timingAndFilter);
         }
     };
 
     timingAndFilter = () => setTimeout(
         (() => {
-            this.props.setParamFilter(this.state);
+            let {ageMin, ageMax, name, genderChoose} = this.state;
+            ageMin=(this.state.ageMin===this.props.ageMinDefault)?-1:ageMin;
+            ageMax=(this.state.ageMax===this.props.ageMaxDefault)?1000:ageMax;
+            this.props.setParamFilter({name,ageMin,ageMax,genderChoose});
         }), 400);
 
 
@@ -58,10 +77,7 @@ class Filters extends React.Component {
         this.setState({genderChoose: this.gender[0]});
     };
     handleMenuClick = (e) => {
-        this.setState({genderChoose: e.item.props.children});
-       // document.querySelector(".filter1").textContent = e.item.props.children;
         this.setState({genderChoose: e.item.props.children},this.timingAndFilter);
-        this.timingAndFilter();
     };
 
     render() {
@@ -76,6 +92,8 @@ class Filters extends React.Component {
                 }
             </Menu>
         );
+        const minValue=this.props.ageMinFilter===-1? this.props.ageMinDefault:ageMin;
+        const maxValue=this.props.ageMaxFilter===1000? this.props.ageMaxDefault:ageMax;
         return (
             <div className="flex-container-for-filter">
                 Name:
@@ -94,7 +112,8 @@ class Filters extends React.Component {
                             min={this.props.ageMin}
                             max={this.props.ageMax}
                             defaultValue={[this.props.ageMin, this.props.ageMax]}
-                            value={[typeof ageMin === 'number' ? ageMin : this.props.ageMin, typeof ageMax === 'number' ? ageMax : this.props.ageMax]}
+                            value={[typeof ageMin === 'number' ? ageMin : minValue, typeof ageMax === 'number' ? ageMax : maxValue]}
+                            //value={[typeof ageMin === 'number' ? ageMin : this.props.ageMin, typeof ageMax === 'number' ? ageMax : this.props.ageMax]}
                             tooltipVisible
                             onChange={this.onChangeSlider}
                     />
@@ -103,7 +122,8 @@ class Filters extends React.Component {
                         className="age-min"
                         min={this.props.ageMin}
                         max={this.props.ageMax}
-                        value={ageMin}
+                        //value={ageMin}
+                        value={minValue}
                         onChange={this.onChangeMinAge}
                     />
                     to:
@@ -112,7 +132,8 @@ class Filters extends React.Component {
                         min={this.props.ageMin}
                         max={this.props.ageMax}
                         style={{marginLeft: 1}}
-                        value={ageMax}
+                        //value={ageMax}
+                        value={maxValue}
                         onChange={this.onChangeMaxAge}
                     />
                 </div>
@@ -136,6 +157,8 @@ const mapStateToProps = (state) => ({
     ageMax: state.people.ageMax,
     ageMinDefault: state.people.ageMinDefault,
     ageMaxDefault: state.people.ageMaxDefault,
+    ageMinFilter: state.people.ageMinFilter,
+    ageMaxFilter: state.people.ageMaxFilter,
     name: state.people.name,
     gender: state.people.genderChoose,
 });

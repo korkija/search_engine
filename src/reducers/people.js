@@ -16,8 +16,8 @@ const INITIAL_DATA = {
     ageMaxDefault: 100,
     ageMin: 0,
     ageMax: 100,
-    ageMinFilter: 0,
-    ageMaxFilter: 100,
+    ageMinFilter: -1,
+    ageMaxFilter: 1000,
     name: "",
     genderChoose: "both",
     people: [],
@@ -59,7 +59,6 @@ export const people = (state = INITIAL_DATA, action) => {
             };
         }
         case GET_SIZE_PAGE: {
-            console.log(action.payLoad);
             return {
                 ...state,
                 pageSize: action.payLoad,
@@ -82,11 +81,12 @@ export const people = (state = INITIAL_DATA, action) => {
             };
         }
         case GET_RESET_FILTER: {
-            console.log("reset filter");
             return {
                 ...state,
                 ageMin: state.ageMinDefault,
                 ageMax: state.ageMaxDefault,
+                ageMinFilter: -1,
+                ageMaxFilter: 1000,
                 name: "",
                 genderChoose: "both",
             };
